@@ -1,19 +1,18 @@
 package Aula10.model;
 
-import java.io.BufferedReader;
-import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Created by gabriel on 30/04/16.
  */
 public class Friend {
+    private long id_friend;
     private String name;
     private String address;
     private long phone;
 
-
-    private Friend(String name, String address, long phone) {
+    public Friend(long id, String name, String address, long phone) {
+        this.setId(id);
         this.setName(name);
         this.setAddress(address);
         this.setPhone(phone);
@@ -27,9 +26,15 @@ public class Friend {
         String address = in.nextLine();
         System.out.println("Número de telefone: ");
         long phone = in.nextLong();
-        return new Friend(name, address, phone);
+        return new Friend(0, name, address, phone);
     }
 
+    public long getId() {
+        return id_friend;
+    }
+    public void setId(long id_friend) {
+        this.id_friend = id_friend;
+    }
     public String getName() {
         return name;
     }

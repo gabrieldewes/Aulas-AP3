@@ -67,7 +67,8 @@ public class ItemDAO {
 
     }
 
-    public void listItems () {
+    public ArrayList<Item> listItems () {
+        ArrayList<Item> items = new ArrayList<>();
         try {
             stmt = helper.prepareStatement(list);
             ResultSet rs = stmt.executeQuery();
@@ -83,6 +84,8 @@ public class ItemDAO {
                     for (ItemType it:ItemType.values()) {
                         if (it.getValor() == type) {
                             System.out.println("ID: "+ id +": Tipo: "+ it.name() +" : "+ name +" : "+ date +" : "+ price + " : "+ cons_state);
+                            Item itm = new Item(id, it, date, price, cons_state, name);
+                            items.add(itm);
                         }
                     }
                 }
@@ -93,5 +96,6 @@ public class ItemDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return items;
     }
 }

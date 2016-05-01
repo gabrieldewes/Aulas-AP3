@@ -1,5 +1,6 @@
 package Aula10;
 
+import Aula10.control.MainControl;
 import Aula10.dao.FriendDAO;
 import Aula10.dao.ItemDAO;
 import Aula10.database.DBHelper;
@@ -14,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -34,25 +36,99 @@ import java.util.Scanner;
     Visualizar quais estão emprestados e para quem esta emprestado.
     Mostrar os itens que você possui.
 */
-public class Main {
+public class Main extends MainControl {
     public static Scanner in = new Scanner(System.in);
+
     public static void main(String[] args) throws SQLException {
-        DBHelper hp = new DBHelper();
+        //DBHelper hp = new DBHelper();
         //hp.onCreate(hp);
         //hp.onCreate2(hp);
         //hp.onDelete(hp);
 
-        ItemDAO itd = new ItemDAO();
+        //ItemDAO itd = new ItemDAO();
         //Item it = Item.readNewItem();
         //itd.createItem(it);
-        //itd.listItems();
+        //items = itd.listItems();
 
-        FriendDAO fd = new FriendDAO();
+        //FriendDAO fd = new FriendDAO();
         //Friend f = Friend.readNewFriend();
-        //fd.createFriendship(f);
-        //fd.listFriendships();
-        //fd.updateFriendship(2);
-        //fd.removeFriendship(2);
+        //fd.createFriend(f);
+        //friends = fd.listFriend();
+        //fd.updateFriend(2);
+        //fd.removeFriend(2);
+
+        int opt=1;
+        int id=1;
+        while (opt != 0) {
+            System.out.println(
+                    "+-------------------------------------+ \n" +
+                    "| ITENS       | Novo (1) | Listar (2) | \n" +
+                    "|-------------------------------------| \n" +
+                    "| AMIGOS      | Novo (3) | Listar (4) | \n" +
+                    "|-------------------------------------| \n" +
+                    "| EMPRÉSTIMOS | Novo (5) | Listar (6) | \n" +
+                    "|-------------------------------------| \n" +
+                    "| OPÇÕES | Zerar (7) | Listar Tudo (8)| \n" +
+                    "+-------------------------------------+");
+            System.out.print("Sua opção: ");
+            opt = in.nextInt();
+
+            switch (opt) {
+                case 1:
+                    newItem();
+                    break;
+                case 2: {
+                    System.out.println(
+                                "+------------------------- ITENS -------------------------+");
+                    listItem();
+                    id=1;
+                    while (id != 0) {
+                        System.out.println(
+                                "+----------------------------------------------------------+ \n" +
+                                "| Digite o ID para Alterar/Remover | Digite 0 para sair    |\n" +
+                                "+----------------------------------------------------------+ ");
+                        System.out.print("ID: ");
+                        id = in.nextInt();
+                        if (id != 0) { updateItem(id); }
+                    }
+                    break;
+                }
+                case 3:
+                    newFriend();
+                    break;
+                case 4:
+                    System.out.println(
+                                "+------------------------- AMIGOS -------------------------+");
+                    listFriend();
+                    id=1;
+                    while (id != 0) {
+                        System.out.println(
+                                "+----------------------------------------------------------+ \n" +
+                                "| Digite o ID para Alterar/Remover | Digite 0 para sair    |\n" +
+                                "+----------------------------------------------------------+ ");
+                        System.out.print("ID: ");
+                        id = in.nextInt();
+                        if (id != 0) { updateFriend(id); }
+                    }
+                    break;
+                case 5:
+                    newLoan();
+                    break;
+                case 6:
+                    listLoan();
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 0:
+                    System.out.println("Finalizando...");
+                    break;
+                default:
+                    System.out.println("Inválido. ");
+                    break;
+            }
+        }
 
     }
 

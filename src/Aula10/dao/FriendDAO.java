@@ -2,19 +2,15 @@ package Aula10.dao;
 
 import Aula10.database.DBHelper;
 import Aula10.model.Friend;
-import org.sqlite.SQLiteConnection;
-
-import javax.naming.Context;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by gabriel on 30/04/16.
  */
 public class FriendDAO {
 
-    private DBHelper helper;
+    private static DBHelper helper;
     private static PreparedStatement stmt = null;
 
     public FriendDAO() throws SQLException {
@@ -43,7 +39,7 @@ public class FriendDAO {
     private static final String list =
             "SELECT * FROM amigos";
 
-    public void createFriendship (Friend f) {
+    public void createFriend(Friend f) {
         try {
             stmt = helper.prepareStatement(insert);
             stmt.setString(1, f.getName());
@@ -61,7 +57,7 @@ public class FriendDAO {
 
     }
 
-    public void updateFriendship (int id_friend) {
+    public void updateFriend (int id_friend) {
         Friend f = Friend.readNewFriend();
         try {
             stmt = helper.prepareStatement(update);
@@ -80,7 +76,7 @@ public class FriendDAO {
         }
     }
 
-    public void removeFriendship (int id_friend) {
+    public void removeFriend (int id_friend) {
         try {
             stmt = helper.prepareStatement(delete);
             stmt.setInt(1, id_friend);
@@ -95,16 +91,20 @@ public class FriendDAO {
         }
     }
 
-    public void listFriendships() {
+    public ArrayList<Friend> listFriend() {
+        ArrayList<Friend> friends = new ArrayList<>();
         try {
-            stmt =  helper.prepareStatement(list);
+            stmt = helper.prepareStatement(list);
             ResultSet rs = stmt.executeQuery();
             if (rs.getFetchSize() >= 0) {
                 while (rs.next()) {
                     int id = rs.getInt("id_friend");
                     String name = rs.getString("name_friend");
                     String address = rs.getString("address_friend");
+                    long phone = rs.getInt("phone_friend");
 
+                    Friend f = new Friend(id, name, address, phone);
+                    friends.add(f);
                     System.out.println(id + " - "+ name + " : " + address);
                 }
             }
@@ -114,5 +114,6 @@ public class FriendDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return friends;
     }
 }

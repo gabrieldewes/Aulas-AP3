@@ -7,17 +7,15 @@ import java.util.Scanner;
  * Created by gabriel on 30/04/16.
  */
 public class Item {
+    private long id_item;
     private ItemType type;
     private String name;
     private double price;
     private String buy_date;
     private String cons_state;
 
-    private Item() {
-
-    }
-
-    private Item(ItemType type, String name, double price, String buy_date, String cons_state) {
+    public Item(long id_item, ItemType type, String name, double price, String buy_date, String cons_state) {
+        this.setId_item(id_item);
         this.setName(name);
         this.setType(type);
         this.setBuy_date(buy_date);
@@ -55,9 +53,15 @@ public class Item {
         System.out.println("Data da compra: ");
         String buy_date = in.nextLine();
 
-        return new Item(type, name, price, cons_state, buy_date);
+        return new Item(0, type, name, price, cons_state, buy_date);
     }
 
+    public long getId_item() {
+        return id_item;
+    }
+    public void setId_item(long id_item) {
+        this.id_item = id_item;
+    }
     public ItemType getType() {
         return type;
     }
