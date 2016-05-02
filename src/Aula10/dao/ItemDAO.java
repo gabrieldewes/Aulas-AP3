@@ -67,6 +67,43 @@ public class ItemDAO {
 
     }
 
+    public void updateItem (int id_item) {
+        Item it = Item.readNewItem();
+        try {
+            stmt = helper.prepareStatement(update);
+            stmt.setString(1, it.getName());
+            stmt.setString(2, it.getBuy_date());
+            stmt.setDouble(3, it.getPrice());
+            stmt.setString(4, it.getCons_state());
+            stmt.setInt(5, it.getType().getValor());
+            stmt.setInt(6, id_item);
+            System.out.println(stmt);
+            stmt.execute();
+            stmt.close();
+            helper.close();
+            System.out.println("Item alterado!");
+        } catch (SQLException e) {
+            System.out.println("Erro ao alterar item. ");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void removeItem (int id_item) {
+        try {
+            stmt = helper.prepareStatement(delete);
+            stmt.setInt(1, id_item);
+            System.out.println(stmt);
+            stmt.execute();
+            stmt.close();
+            helper.close();
+            System.out.println("Item removido.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao remover item. ");
+            throw new RuntimeException(e);
+        }
+    }
+
     public ArrayList<Item> listItems () {
         ArrayList<Item> items = new ArrayList<>();
         try {

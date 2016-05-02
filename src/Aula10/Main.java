@@ -1,23 +1,11 @@
 package Aula10;
 
 import Aula10.control.MainControl;
-import Aula10.dao.FriendDAO;
-import Aula10.dao.ItemDAO;
-import Aula10.database.DBHelper;
-import Aula10.model.Friend;
-import Aula10.model.Item;
-import Aula10.model.ItemType;
-import org.sqlite.SQLiteConnection;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+
+import static Aula10.control.FriendControl.*;
+import static Aula10.control.ItemControl.*;
 
 /**
  * Created by gabriel on 30/04/16.
@@ -57,71 +45,25 @@ public class Main extends MainControl {
         //fd.updateFriend(2);
         //fd.removeFriend(2);
 
-        int opt=1;
-        int id=1;
-        while (opt != 0) {
-            System.out.println(
-                    "+-------------------------------------+ \n" +
-                    "| ITENS       | Novo (1) | Listar (2) | \n" +
-                    "|-------------------------------------| \n" +
-                    "| AMIGOS      | Novo (3) | Listar (4) | \n" +
-                    "|-------------------------------------| \n" +
-                    "| EMPRÉSTIMOS | Novo (5) | Listar (6) | \n" +
-                    "|-------------------------------------| \n" +
-                    "| OPÇÕES | Zerar (7) | Listar Tudo (8)| \n" +
-                    "+-------------------------------------+");
-            System.out.print("Sua opção: ");
-            opt = in.nextInt();
-
-            switch (opt) {
-                case 1:
+        String aux="1";
+        while (!aux.contentEquals("0")) {
+            System.out.println(DEFAULT_MENU);
+            aux = in.next();
+            switch (aux) {
+                case "1":
                     newItem();
                     break;
-                case 2: {
-                    System.out.println(
-                                "+------------------------- ITENS -------------------------+");
-                    listItem();
-                    id=1;
-                    while (id != 0) {
-                        System.out.println(
-                                "+----------------------------------------------------------+ \n" +
-                                "| Digite o ID para Alterar/Remover | Digite 0 para sair    |\n" +
-                                "+----------------------------------------------------------+ ");
-                        System.out.print("ID: ");
-                        id = in.nextInt();
-                        if (id != 0) { updateItem(id); }
-                    }
+                case "2":
+                    itemManager();
                     break;
-                }
-                case 3:
+                case "3":
                     newFriend();
                     break;
-                case 4:
-                    System.out.println(
-                                "+------------------------- AMIGOS -------------------------+");
-                    listFriend();
-                    id=1;
-                    while (id != 0) {
-                        System.out.println(
-                                "+----------------------------------------------------------+ \n" +
-                                "| Digite o ID para Alterar/Remover | Digite 0 para sair    |\n" +
-                                "+----------------------------------------------------------+ ");
-                        System.out.print("ID: ");
-                        id = in.nextInt();
-                        if (id != 0) { updateFriend(id); }
-                    }
+                case "4":
+                    friendManager();
                     break;
-                case 5:
-                    newLoan();
-                    break;
-                case 6:
-                    listLoan();
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 0:
+
+                case "0":
                     System.out.println("Finalizando...");
                     break;
                 default:
