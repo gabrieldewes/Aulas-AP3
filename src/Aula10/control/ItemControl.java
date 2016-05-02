@@ -54,27 +54,30 @@ public class ItemControl {
             System.out.println(ITEM_FOOTER);
             aux = in.next();
             if (!aux.contentEquals("0")) {
-                try { id = Integer.parseInt(aux); }
-                catch (NumberFormatException n) { System.out.println("Erro: " + n.getMessage()); }
-                aux = "1";
-                while (!aux.contentEquals("0")) {
-                    System.out.println(MainControl.OPTION_FOOTER);
-                    aux = in.next();
-                    switch (aux) {
-                        case "1": {
-                            updateItem(id);
-                            aux = "0";
+                id = MainControl.strToInt(aux);
+                if (id != 0) {
+                    aux = "1";
+                    while (!aux.contentEquals("0")) {
+                        System.out.println(MainControl.OPTION_FOOTER);
+                        aux = in.next();
+                        switch (aux) {
+                            case "1": {
+                                updateItem(id);
+                                aux = "0";
+                            }
+                            break;
+                            case "2": {
+                                removeItem(id);
+                                aux = "0";
+                            }
+                            break;
+                            default:
+                                System.out.println("Inválido. ");
                         }
-                        break;
-                        case "2": {
-                            removeItem(id);
-                            aux = "0";
-                        }
-                        break;
-                        default:
-                            System.out.println("Inválido. ");
                     }
-                }
+                } else
+                    System.out.println("Inválido. Digite novamente: ");
+
             }
         }
     }

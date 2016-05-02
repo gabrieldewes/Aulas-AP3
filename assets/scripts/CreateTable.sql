@@ -1,2 +1,4 @@
 CREATE TABLE IF NOT EXISTS amigos (id_friend INTEGER PRIMARY KEY AUTOINCREMENT,name_friend TEXT,address_friend TEXT,phone_friend INTEGER);
 CREATE TABLE IF NOT EXISTS items (id_item INTEGER PRIMARY KEY AUTOINCREMENT, name_item TEXT, buy_date TEXT, price DOUBLE, cons_state TEXT, type INTEGER);
+CREATE TABLE IF NOT EXISTS loan (id_loan INTEGER PRIMARY KEY AUTOINCREMENT, id_friend INTEGER, loan_date TEXT);
+CREATE TABLE IF NOT EXISTS loan_has_item (id_loan INTEGER, id_item INTEGER);

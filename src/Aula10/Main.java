@@ -1,16 +1,17 @@
 package Aula10;
 
+import Aula10.control.LoanControl;
 import Aula10.control.MainControl;
-import Aula10.dao.FriendDAO;
-import Aula10.database.DBHelper;
-import Aula10.database.PopulateDatabase;
+import Aula10.dao.LoanDAO;
+import Aula10.model.Loan;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import static Aula10.control.FriendControl.*;
 import static Aula10.control.ItemControl.*;
+import static Aula10.control.LoanControl.listLoan;
+import static Aula10.control.LoanControl.newLoan;
 
 /**
  * Created by gabriel on 30/04/16.
@@ -72,9 +73,12 @@ public class Main extends MainControl {
                     friendManager();
                     break;
                 case "5":
+                    newLoan();
                     break;
-                case "6":
+                case "6": {
+                    listLoan();
                     break;
+                }
                 case "7":
                     reinitialize();
                     break;
@@ -87,7 +91,5 @@ public class Main extends MainControl {
                     break;
             }
         }
-
     }
-
 }
