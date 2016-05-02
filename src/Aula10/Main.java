@@ -1,6 +1,11 @@
 package Aula10;
 
 import Aula10.control.MainControl;
+import Aula10.dao.FriendDAO;
+import Aula10.database.DBHelper;
+import Aula10.database.PopulateDatabase;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -27,23 +32,27 @@ import static Aula10.control.ItemControl.*;
 public class Main extends MainControl {
     public static Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
         //DBHelper hp = new DBHelper();
+        //hp.onDelete(hp);
         //hp.onCreate(hp);
         //hp.onCreate2(hp);
-        //hp.onDelete(hp);
+        //reinitialize();
 
         //ItemDAO itd = new ItemDAO();
         //Item it = Item.readNewItem();
         //itd.createItem(it);
-        //items = itd.listItems();
+        //itd.listItems();
 
         //FriendDAO fd = new FriendDAO();
         //Friend f = Friend.readNewFriend();
         //fd.createFriend(f);
-        //friends = fd.listFriend();
+        //fd.listFriend();
         //fd.updateFriend(2);
         //fd.removeFriend(2);
+
+        //PopulateDatabase pdb = new PopulateDatabase();
+        //pdb.populate(hp);
 
         String aux="1";
         while (!aux.contentEquals("0")) {
@@ -61,6 +70,13 @@ public class Main extends MainControl {
                     break;
                 case "4":
                     friendManager();
+                    break;
+                case "5":
+                    break;
+                case "6":
+                    break;
+                case "7":
+                    reinitialize();
                     break;
 
                 case "0":
