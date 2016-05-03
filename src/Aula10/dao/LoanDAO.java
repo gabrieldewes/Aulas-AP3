@@ -91,19 +91,18 @@ public class LoanDAO {
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     int id_loan = rs.getInt("id_loan");
-                    int id_friend = rs.getInt("id_friend");
+                    //int id_friend = rs.getInt("id_friend");
                     String name_friend = rs.getString("name_friend");
                     String loan_date = rs.getString("loan_date");
                     int has_loan = rs.getInt("has_loan");
-                    int id_item = rs.getInt("id_item");
+                    //int id_item = rs.getInt("id_item");
                     String name_item = rs.getString("name_item");
 
-                    if (last_id == id_loan) {
-                        //System.out.println(id_loan +", "+ loan_date +", "+ name_friend);
-                    } else
-                        System.out.println(id_loan +", "+ loan_date +", "+ name_friend);
+                    if (last_id != id_loan) {
+                        System.out.println("("+ id_loan +") Emprestado para "+ name_friend +", no dia "+ loan_date +" os itens: ");
+                    }
                     if (id_loan == has_loan) {
-                        System.out.println(name_item);
+                        System.out.println(" # "+ name_item );
                         last_id = id_loan;
                     }
 

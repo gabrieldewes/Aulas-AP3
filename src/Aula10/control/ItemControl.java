@@ -16,7 +16,11 @@ public class ItemControl {
     private static ItemDAO itd;
     private static Item it;
 
-    private static final String ITEM_HEADER =
+    public ItemControl() throws SQLException {
+
+    }
+
+    private static final String ITEM_HEADER = "\n" +
             "+------------------------- ITENS --------------------------+";
     private static final String ITEM_FOOTER =
             "+----------------------------------------------------------+ \n" +
@@ -32,7 +36,8 @@ public class ItemControl {
 
     private static void updateItem(int id_item) throws SQLException {
         itd = new ItemDAO();
-        itd.updateItem(id_item);
+        if (itd.getItem(id_item))
+            itd.updateItem(id_item);
     }
 
     private static void removeItem(int id_item) throws SQLException {
@@ -57,27 +62,31 @@ public class ItemControl {
                 if (!aux.contentEquals("0")) {
                     id = MainControl.strToInt(aux);
                     if (id != 0) {
-                        aux = "1";
-                        while (!aux.contentEquals("0")) {
-                            System.out.println(MainControl.OPTION_FOOTER);
-                            aux = in.next();
-                            switch (aux) {
-                                case "1": {
-                                    updateItem(id);
-                                    aux = "0";
+                        itd = new ItemDAO();
+                        if (itd.getItem(id)) {
+                            aux = "1";
+                            while (!aux.contentEquals("0")) {
+                                System.out.println(MainControl.OPTION_FOOTER);
+                                aux = in.next();
+                                switch (aux) {
+                                    case "1": {
+                                        updateItem(id);
+                                        aux = "0";
+                                    }
+                                    break;
+                                    case "2": {
+                                        if (MainControl.confirm())
+                                            removeItem(id);
+                                        aux = "0";
+                                    }
+                                    break;
+                                    default:
+                                        System.out.println("Inválido. ");
                                 }
-                                break;
-                                case "2": {
-                                    removeItem(id);
-                                    aux = "0";
-                                }
-                                break;
-                                default:
-                                    System.out.println("Inválido. ");
                             }
                         }
                     } else
-                        System.out.println("Inválido. Digite novamente: ");
+                        System.out.println("Inválido. Digite novamente ");
 
                 }
             }

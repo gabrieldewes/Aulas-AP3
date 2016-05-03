@@ -91,6 +91,27 @@ public class FriendDAO {
         }
     }
 
+    public boolean getFriend (int id_friend) {
+        try {
+            stmt = helper.prepareStatement(select);
+            stmt.setInt(1, id_friend);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    System.out.println(
+                            "- Nome: "+ rs.getString("name_friend") +
+                            ", endereço: "+ rs.getString("address_friend") +
+                            ", telefone: "+ rs.getInt("phone_friend"));
+                    return true;
+                }
+            } else
+                System.out.println("Amigo não encontrado. ");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
     public ArrayList<Friend> listFriend() {
         ArrayList<Friend> friends = new ArrayList<>();
         try {
@@ -105,7 +126,7 @@ public class FriendDAO {
 
                     Friend f = new Friend(id, name, address, phone);
                     friends.add(f);
-                    System.out.println(id + " - "+ name + " : " + address);
+                    System.out.println("(" + id + ") - "+ name + " : " + address +" : "+ phone);
                 }
             }
             else { System.out.println("Parece que você não fez amizades ainda. "); }

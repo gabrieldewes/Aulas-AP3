@@ -16,13 +16,12 @@ public class MainControl {
     private static DBHelper helper;
 
     protected static final String DEFAULT_MENU =
-            "+-------------------------------------+ +----------------------------------------+ \n" +
-            "| ITENS       | Novo (1) | Listar (2) | | Popular para teste (8) | Reiniciar (9) | \n" +
-            "|-------------------------------------| +----------------------------------------+ \n" +
-            "| AMIGOS      | Novo (3) | Listar (4) | |                               Sair (0) | \n" +
-            "|-------------------------------------| +----------------------------------------+\n" +
-            "| EMPRÉSTIMOS | Novo (5) | Listar (6) | \n" +
-            "+-------------------------------------+ \n" +
+            "+-------------------------------+-------------------------------+-------------------------------+ \n" +
+            "|            ITENS              |           AMIGOS              |        EMPRÉSTIMOS            | \n" +
+            "|     Novo (1) | Listar (2)     |     Novo (3) | Listar (4)     |     Novo (5) | Listar (6)     | \n" +
+            "+-------------------------------+-------------------------------+-------------------------------+ \n" +
+            "|   Popular para teste (8)      |        Reiniciar (9)          |               Sair (0)        | \n" +
+            "+-------------------------------+-------------------------------+-------------------------------+ \n" +
             "- Sua opção: ";
 
     static final String OPTION_FOOTER =
@@ -36,6 +35,7 @@ public class MainControl {
         PopulateDatabase pdb = new PopulateDatabase();
         System.out.println("Inserindo dados...");
         pdb.populate(helper);
+        System.out.println("Pronto! ");
         helper.close();
     }
 

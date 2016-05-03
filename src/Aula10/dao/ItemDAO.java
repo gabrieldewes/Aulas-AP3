@@ -104,6 +104,35 @@ public class ItemDAO {
         }
     }
 
+    public boolean getItem (int id_item) {
+        try {
+            stmt = helper.prepareStatement(select);
+            stmt.setInt(1, id_item);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id_item");
+                    String name = rs.getString("name_item");
+                    String date = rs.getString("buy_date");
+                    double price = rs.getDouble("price");
+                    String cons_state = rs.getString("cons_state");
+                    int type = rs.getInt("type");
+
+                    for (ItemType it:ItemType.values()) {
+                        if (it.getValor() == type) {
+                            System.out.println("Nome: "+ name +", Categoria: "+ it.name() +", Comprado em: "+ date +", por "+ price + ". Está "+ cons_state);
+                            return true;
+                        }
+                    }
+                }
+            } else
+                System.out.println("Item não encontrado. ");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
     public ArrayList<Item> listItems () {
         ArrayList<Item> items = new ArrayList<>();
         try {
@@ -120,7 +149,7 @@ public class ItemDAO {
 
                     for (ItemType it:ItemType.values()) {
                         if (it.getValor() == type) {
-                            System.out.println("ID: "+ id +": Tipo: "+ it.name() +" : "+ name +" : "+ date +" : "+ price + " : "+ cons_state);
+                            System.out.println("("+ id +") - "+ name +" : "+ it.name() +" : "+ date +" : "+ price + " : "+ cons_state);
                             Item itm = new Item(id, it, date, price, cons_state, name);
                             items.add(itm);
                         }
