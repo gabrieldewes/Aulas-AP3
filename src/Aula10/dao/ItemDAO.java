@@ -109,7 +109,7 @@ public class ItemDAO {
         try {
             stmt = helper.prepareStatement(list);
             ResultSet rs = stmt.executeQuery();
-            if (rs.getFetchSize() >= 0) {
+            if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     int id = rs.getInt("id_item");
                     String name = rs.getString("name_item");

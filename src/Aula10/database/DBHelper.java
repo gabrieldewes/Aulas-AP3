@@ -2,6 +2,7 @@ package Aula10.database;
 
 import Aula10.dao.FriendDAO;
 import Aula10.dao.ItemDAO;
+import Aula10.dao.LoanDAO;
 import org.sqlite.SQLiteConnection;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.javax.SQLitePooledConnection;
@@ -41,6 +42,8 @@ public class DBHelper extends SQLiteConnection {
         Statement statement = db.createStatement();
         statement.executeUpdate(FriendDAO.create_table);
         statement.executeUpdate(ItemDAO.create_table);
+        statement.executeUpdate(LoanDAO.CREATE_TABLE);
+        statement.executeUpdate(LoanDAO.CREATE_FOREIGN_TABLE);
     }
 
     public void onCreate2(SQLiteConnection db) throws SQLException {
@@ -67,8 +70,10 @@ public class DBHelper extends SQLiteConnection {
 
     public void onDelete (SQLiteConnection db) throws SQLException {
         Statement statement = db.createStatement();
-        statement.executeUpdate("DROP TABLE amigos;");
+        statement.executeUpdate("DROP TABLE friends;");
         statement.executeUpdate("DROP TABLE items;");
+        statement.executeUpdate("DROP TABLE loan;");
+        statement.executeUpdate("DROP TABLE loan_has_item;");
     }
 
 }

@@ -1,16 +1,12 @@
 package Aula10;
 
-import Aula10.control.LoanControl;
 import Aula10.control.MainControl;
-import Aula10.dao.LoanDAO;
-import Aula10.model.Loan;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 import static Aula10.control.FriendControl.*;
 import static Aula10.control.ItemControl.*;
-import static Aula10.control.LoanControl.listLoan;
+import static Aula10.control.LoanControl.loanManager;
 import static Aula10.control.LoanControl.newLoan;
 
 /**
@@ -57,7 +53,7 @@ public class Main extends MainControl {
 
         String aux="1";
         while (!aux.contentEquals("0")) {
-            System.out.println(DEFAULT_MENU);
+            System.out.print(DEFAULT_MENU);
             aux = in.next();
             switch (aux) {
                 case "1":
@@ -75,14 +71,17 @@ public class Main extends MainControl {
                 case "5":
                     newLoan();
                     break;
-                case "6": {
-                    listLoan();
-                    break;
-                }
-                case "7":
-                    reinitialize();
+                case "6":
+                    loanManager();
                     break;
 
+                case "8":
+                    populate();
+                    break;
+                case "9":
+                    if (confirm())
+                        reinitialize();
+                    break;
                 case "0":
                     System.out.println("Finalizando...");
                     break;

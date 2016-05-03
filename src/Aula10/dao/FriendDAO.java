@@ -17,27 +17,27 @@ public class FriendDAO {
         helper = new DBHelper();
     }
 
-    public static final String create_table = "CREATE TABLE IF NOT EXISTS amigos (" +
+    public static final String create_table = "CREATE TABLE IF NOT EXISTS friends (" +
             "id_friend INTEGER PRIMARY KEY AUTOINCREMENT," +
             "name_friend TEXT," +
             "address_friend TEXT," +
             "phone_friend INTEGER);";
 
     private static final String insert =
-            "INSERT INTO amigos (name_friend, address_friend, phone_friend)" +
+            "INSERT INTO friends (name_friend, address_friend, phone_friend)" +
             " VALUES (?,?,?)";
 
     private static final String update =
-            "UPDATE amigos SET name_friend=?, address_friend=?, phone_friend=? WHERE id_friend=?";
+            "UPDATE friends SET name_friend=?, address_friend=?, phone_friend=? WHERE id_friend=?";
 
     private static final String delete =
-            "DELETE FROM amigos WHERE id_friend = ?";
+            "DELETE FROM friends WHERE id_friend = ?";
 
     private static final String select =
-            "SELECT * FROM amigos WHERE id_friend=?";
+            "SELECT * FROM friends WHERE id_friend=?";
 
     private static final String list =
-            "SELECT * FROM amigos";
+            "SELECT * FROM friends";
 
     public void createFriend(Friend f) {
         try {
@@ -96,7 +96,7 @@ public class FriendDAO {
         try {
             stmt = helper.prepareStatement(list);
             ResultSet rs = stmt.executeQuery();
-            if (rs.getFetchSize() >= 0) {
+            if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     int id = rs.getInt("id_friend");
                     String name = rs.getString("name_friend");

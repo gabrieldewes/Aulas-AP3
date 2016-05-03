@@ -1,6 +1,9 @@
 package Aula10.control;
 
 import Aula10.database.DBHelper;
+import Aula10.database.PopulateDatabase;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,16 +13,15 @@ import java.util.Scanner;
  */
 public class MainControl {
     public static Scanner in = new Scanner(System.in);
+    private static DBHelper helper;
 
     protected static final String DEFAULT_MENU =
-            "+-------------------------------------+ \n" +
-            "| ITENS       | Novo (1) | Listar (2) | \n" +
-            "|-------------------------------------| \n" +
-            "| AMIGOS      | Novo (3) | Listar (4) | \n" +
-            "|-------------------------------------| \n" +
+            "+-------------------------------------+ +----------------------------------------+ \n" +
+            "| ITENS       | Novo (1) | Listar (2) | | Popular para teste (8) | Reiniciar (9) | \n" +
+            "|-------------------------------------| +----------------------------------------+ \n" +
+            "| AMIGOS      | Novo (3) | Listar (4) | |                               Sair (0) | \n" +
+            "|-------------------------------------| +----------------------------------------+\n" +
             "| EMPRÉSTIMOS | Novo (5) | Listar (6) | \n" +
-            "|-------------------------------------| \n" +
-            "| Reiniciar (7) |            Sair (0) | \n" +
             "+-------------------------------------+ \n" +
             "- Sua opção: ";
 
@@ -29,14 +31,23 @@ public class MainControl {
             "+----------------------------------------------------------+ \n" +
             "- Sua opção: ";
 
+    protected static void populate() throws SQLException, IOException {
+        helper = new DBHelper();
+        PopulateDatabase pdb = new PopulateDatabase();
+        System.out.println("Inserindo dados...");
+        pdb.populate(helper);
+        helper.close();
+    }
 
     protected static void reinitialize() throws SQLException {
-        DBHelper helper = new DBHelper();
+        helper = new DBHelper();
         System.out.println("Apagando tabelas...");
         helper.onDelete(helper);
         System.out.println("Recriando tabelas...");
         helper.onCreate2(helper);
         //helper.onCreate(helper);
+        helper.close();
+        System.out.println("Pronto! ");
     }
 
     public static int strToInt(String str) {
@@ -65,9 +76,20 @@ public class MainControl {
         int[] vet = new int[lhi.size()];
         for (int i=0; i<lhi.size(); i++) {
             int in = MainControl.strToInt(lhi.get(i).trim());
+            if (in != 0)
                 vet[i] = in;
 
         }
         return vet;
+    }
+
+    public static boolean confirm() {
+        System.out.print("Tem certeza? S/N : ");
+        String aux = in.next();
+        if (aux.contentEquals("s"))
+            return true;
+        else
+            System.out.println("Cancelado. ");
+        return false;
     }
 }

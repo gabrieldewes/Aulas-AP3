@@ -41,46 +41,48 @@ public class FriendControl {
         fd.removeFriend(id_friend);
     }
 
-    private static void listFriend() throws SQLException {
+    private static boolean listFriend() throws SQLException {
         fd = new FriendDAO();
         friends = fd.listFriend();
+        return friends.size() > 0;
     }
 
     public static void friendManager() throws SQLException {
         int id=0;
         String aux = "1";
         System.out.println(FRIEND_HEADER);
-        listFriend();
-        while (!aux.contentEquals("0")) {
-            System.out.println(FRIEND_FOOTER);
-            aux = in.next();
-            if (!aux.contentEquals("0")) {
-                id = MainControl.strToInt(aux);
-                if (id != 0) {
-                    aux = "1";
-                    while (!aux.contentEquals("0")) {
-                        System.out.println(MainControl.OPTION_FOOTER);
-                        aux = in.next();
-                        switch (aux) {
-                            case "1": {
-                                updateFriend(id);
-                                aux = "0";
-                            }
-                            break;
-                            case "2": {
-                                removeFriend(id);
-                                aux = "0";
-                            }
-                            break;
-                            case "0":
+        if (listFriend()) {
+            while (!aux.contentEquals("0")) {
+                System.out.println(FRIEND_FOOTER);
+                aux = in.next();
+                if (!aux.contentEquals("0")) {
+                    id = MainControl.strToInt(aux);
+                    if (id != 0) {
+                        aux = "1";
+                        while (!aux.contentEquals("0")) {
+                            System.out.println(MainControl.OPTION_FOOTER);
+                            aux = in.next();
+                            switch (aux) {
+                                case "1": {
+                                    updateFriend(id);
+                                    aux = "0";
+                                }
                                 break;
-                            default:
-                                System.out.println("Inválido. ");
+                                case "2": {
+                                    removeFriend(id);
+                                    aux = "0";
+                                }
                                 break;
+                                case "0":
+                                    break;
+                                default:
+                                    System.out.println("Inválido. ");
+                                    break;
+                            }
                         }
-                    }
-                } else
-                    System.out.println("Inválido. Digite novamente: ");
+                    } else
+                        System.out.println("Inválido. Digite novamente: ");
+                }
             }
         }
     }

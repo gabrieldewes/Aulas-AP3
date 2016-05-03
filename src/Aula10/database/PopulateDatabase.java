@@ -28,7 +28,7 @@ public class PopulateDatabase {
 
     }
 
-    private static BufferedReader openSQLfile(String SQL_FILE) throws FileNotFoundException {
+    public static BufferedReader openSQLfile(String SQL_FILE) throws FileNotFoundException {
         return new BufferedReader( new FileReader(SQL_FILE) );
     }
 }

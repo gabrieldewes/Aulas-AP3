@@ -40,44 +40,46 @@ public class ItemControl {
         itd.removeItem(id_item);
     }
 
-    private static void listItem() throws SQLException {
+    private static boolean listItem() throws SQLException {
         itd = new ItemDAO();
         items = itd.listItems();
+        return items.size() > 0;
     }
 
     public static void itemManager() throws SQLException {
         int id=0;
         String aux="1";
         System.out.println(ITEM_HEADER);
-        listItem();
-        while (!aux.contentEquals("0")) {
-            System.out.println(ITEM_FOOTER);
-            aux = in.next();
-            if (!aux.contentEquals("0")) {
-                id = MainControl.strToInt(aux);
-                if (id != 0) {
-                    aux = "1";
-                    while (!aux.contentEquals("0")) {
-                        System.out.println(MainControl.OPTION_FOOTER);
-                        aux = in.next();
-                        switch (aux) {
-                            case "1": {
-                                updateItem(id);
-                                aux = "0";
+        if (listItem()) {
+            while (!aux.contentEquals("0")) {
+                System.out.println(ITEM_FOOTER);
+                aux = in.next();
+                if (!aux.contentEquals("0")) {
+                    id = MainControl.strToInt(aux);
+                    if (id != 0) {
+                        aux = "1";
+                        while (!aux.contentEquals("0")) {
+                            System.out.println(MainControl.OPTION_FOOTER);
+                            aux = in.next();
+                            switch (aux) {
+                                case "1": {
+                                    updateItem(id);
+                                    aux = "0";
+                                }
+                                break;
+                                case "2": {
+                                    removeItem(id);
+                                    aux = "0";
+                                }
+                                break;
+                                default:
+                                    System.out.println("Inválido. ");
                             }
-                            break;
-                            case "2": {
-                                removeItem(id);
-                                aux = "0";
-                            }
-                            break;
-                            default:
-                                System.out.println("Inválido. ");
                         }
-                    }
-                } else
-                    System.out.println("Inválido. Digite novamente: ");
+                    } else
+                        System.out.println("Inválido. Digite novamente: ");
 
+                }
             }
         }
     }
