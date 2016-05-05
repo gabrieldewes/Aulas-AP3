@@ -24,19 +24,19 @@ public class DBHelper extends SQLiteConnection {
         super( DB_DRIVER, DB_NAME );
     }
 
-    /* Método Noob
-    public static Connection getConn () {
+    public Connection getConn () {
+        Connection c=null;
         try {
             Class.forName( DRIVER );
-            connection = DriverManager.getConnection( DB_DRIVER + DB_NAME );
+            c = DriverManager.getConnection( DB_DRIVER + DB_NAME );
             System.out.println("Conexão estabelecida.");
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        return connection;
+        return c;
     }
-    */
+
 
     public void onCreate(SQLiteConnection db) throws SQLException {
         Statement statement = db.createStatement();
@@ -64,7 +64,7 @@ public class DBHelper extends SQLiteConnection {
         }
     }
 
-    public void onUpgrade(int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteConnection helper, int oldVersion, int newVersion) {
 
     }
 

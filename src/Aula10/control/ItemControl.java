@@ -13,11 +13,13 @@ import java.util.Scanner;
 public class ItemControl {
     public static Scanner in = new Scanner(System.in);
     private static ArrayList<Item> items = new ArrayList<>();
-    private static ItemDAO itd;
+    private static ItemDAO itd = null;
     private static Item it;
 
     public ItemControl() throws SQLException {
-
+        if (itd != null) {
+            itd = new ItemDAO();
+        }
     }
 
     private static final String ITEM_HEADER = "\n" +
@@ -52,11 +54,12 @@ public class ItemControl {
     }
 
     public static void itemManager() throws SQLException {
-        int id=0;
-        String aux="1";
-        System.out.println(ITEM_HEADER);
-        if (listItem()) {
-            while (!aux.contentEquals("0")) {
+        int id=1;
+        String aux = "1";
+        boolean sair = false;
+        while (!sair) {
+            System.out.println(ITEM_HEADER);
+            if (listItem()) {
                 System.out.println(ITEM_FOOTER);
                 aux = in.next();
                 if (!aux.contentEquals("0")) {
@@ -64,32 +67,40 @@ public class ItemControl {
                     if (id != 0) {
                         itd = new ItemDAO();
                         if (itd.getItem(id)) {
-                            aux = "1";
+                            //aux = "1";
                             while (!aux.contentEquals("0")) {
                                 System.out.println(MainControl.OPTION_FOOTER);
                                 aux = in.next();
                                 switch (aux) {
                                     case "1": {
                                         updateItem(id);
-                                        aux = "0";
+                                        aux="0";
                                     }
                                     break;
                                     case "2": {
                                         if (MainControl.confirm())
                                             removeItem(id);
-                                        aux = "0";
+                                        aux="0";
                                     }
                                     break;
+                                    case "0": {
+                                        aux = "0";
+                                        id=0;
+                                        sair=true;
+                                        break;
+                                    }
                                     default:
                                         System.out.println("Inválido. ");
+                                        break;
                                 }
                             }
                         }
                     } else
-                        System.out.println("Inválido. Digite novamente ");
-
-                }
-            }
+                        System.out.println("Inválido. Digite novamente: ");
+                } else
+                    sair=true;
+            } else
+                sair=true;
         }
     }
 }

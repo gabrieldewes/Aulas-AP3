@@ -41,6 +41,8 @@ public class MainControl {
 
     protected static void reinitialize() throws SQLException {
         helper = new DBHelper();
+        System.out.println("Verificando integridade do banco...");
+        helper.onUpgrade(helper, 1, 1);
         System.out.println("Apagando tabelas...");
         helper.onDelete(helper);
         System.out.println("Recriando tabelas...");

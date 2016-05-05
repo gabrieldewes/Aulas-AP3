@@ -82,6 +82,10 @@ public class LoanDAO {
 
     }
 
+    public boolean getLoan(int id_loan) {
+        return false;
+    }
+
     public ArrayList<Object> listLoan() {
         ArrayList<Object> loans = new ArrayList<>();
         try {

@@ -3,8 +3,9 @@ package Aula10.dao;
 import Aula10.database.DBHelper;
 import Aula10.model.Item;
 import Aula10.model.ItemType;
+import org.sqlite.SQLiteConnection;
+import org.sqlite.SQLiteDataSource;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class ItemDAO {
     private static DBHelper helper;
     private static PreparedStatement stmt = null;
 
-    public ItemDAO () throws SQLException {
+    public ItemDAO() throws SQLException {
         helper = new DBHelper();
     }
 
@@ -78,7 +79,7 @@ public class ItemDAO {
             stmt.setInt(5, it.getType().getValor());
             stmt.setInt(6, id_item);
             System.out.println(stmt);
-            stmt.execute();
+            stmt.executeUpdate();
             stmt.close();
             helper.close();
             System.out.println("Item alterado!");
@@ -94,7 +95,7 @@ public class ItemDAO {
             stmt = helper.prepareStatement(delete);
             stmt.setInt(1, id_item);
             System.out.println(stmt);
-            stmt.execute();
+            stmt.executeUpdate();
             stmt.close();
             helper.close();
             System.out.println("Item removido.");
@@ -104,7 +105,7 @@ public class ItemDAO {
         }
     }
 
-    public boolean getItem (int id_item) {
+    public boolean getItem (int id_item) throws SQLException {
         try {
             stmt = helper.prepareStatement(select);
             stmt.setInt(1, id_item);
@@ -129,11 +130,13 @@ public class ItemDAO {
                 System.out.println("Item não encontrado. ");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            helper.close();
         }
         return false;
     }
 
-    public ArrayList<Item> listItems () {
+    public ArrayList<Item> listItems () throws SQLException {
         ArrayList<Item> items = new ArrayList<>();
         try {
             stmt = helper.prepareStatement(list);
@@ -158,9 +161,10 @@ public class ItemDAO {
             }
             else { System.out.println("Parece que você não cadastrou itens ainda. "); }
             stmt.close();
-            helper.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            helper.close();
         }
         return items;
     }

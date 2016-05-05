@@ -66,7 +66,7 @@ public class FriendDAO {
             stmt.setLong(3, f.getPhone());
             stmt.setInt(4, id_friend);
             System.out.println(stmt);
-            stmt.execute();
+            stmt.executeUpdate();
             stmt.close();
             helper.close();
             System.out.println("Amigo alterado.");
@@ -81,7 +81,7 @@ public class FriendDAO {
             stmt = helper.prepareStatement(delete);
             stmt.setInt(1, id_friend);
             System.out.println(stmt);
-            stmt.execute();
+            stmt.executeUpdate();
             stmt.close();
             helper.close();
             System.out.println("Amigo removido.");
@@ -91,7 +91,7 @@ public class FriendDAO {
         }
     }
 
-    public boolean getFriend (int id_friend) {
+    public boolean getFriend (int id_friend) throws SQLException {
         try {
             stmt = helper.prepareStatement(select);
             stmt.setInt(1, id_friend);
@@ -108,11 +108,13 @@ public class FriendDAO {
                 System.out.println("Amigo não encontrado. ");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            helper.close();
         }
         return false;
     }
 
-    public ArrayList<Friend> listFriend() {
+    public ArrayList<Friend> listFriend() throws SQLException {
         ArrayList<Friend> friends = new ArrayList<>();
         try {
             stmt = helper.prepareStatement(list);
@@ -131,9 +133,10 @@ public class FriendDAO {
             }
             else { System.out.println("Parece que você não fez amizades ainda. "); }
             stmt.close();
-            helper.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            helper.close();
         }
         return friends;
     }

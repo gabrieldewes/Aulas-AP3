@@ -1,6 +1,12 @@
 package Aula10;
 
+import Aula10.control.FriendControl;
+import Aula10.control.ItemControl;
+import Aula10.control.LoanControl;
 import Aula10.control.MainControl;
+import Aula10.database.DBHelper;
+import Aula10.util.ProgressBarDemo;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -30,6 +36,7 @@ public class Main extends MainControl {
     public static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws SQLException, IOException {
+        ProgressBarDemo pbd = new ProgressBarDemo();
         //DBHelper hp = new DBHelper();
         //hp.onDelete(hp);
         //hp.onCreate(hp);
@@ -51,7 +58,7 @@ public class Main extends MainControl {
         //PopulateDatabase pdb = new PopulateDatabase();
         //pdb.populate(hp);
 
-        String aux="1";
+        /*String aux="1";
         while (!aux.contentEquals("0")) {
             System.out.print(DEFAULT_MENU);
             aux = in.next();
@@ -89,6 +96,6 @@ public class Main extends MainControl {
                     System.out.println("Inválido. ");
                     break;
             }
-        }
+        }*/
     }
 }

@@ -49,11 +49,12 @@ public class FriendControl {
     }
 
     public static void friendManager() throws SQLException {
-        int id=0;
+        int id=1;
         String aux = "1";
-        System.out.println(FRIEND_HEADER);
-        if (listFriend()) {
-            while (!aux.contentEquals("0")) {
+        boolean sair = false;
+        while (!sair) {
+            System.out.println(FRIEND_HEADER);
+            if (listFriend()) {
                 System.out.println(FRIEND_FOOTER);
                 aux = in.next();
                 if (!aux.contentEquals("0")) {
@@ -61,23 +62,28 @@ public class FriendControl {
                     if (id != 0) {
                         fd = new FriendDAO();
                         if (fd.getFriend(id)) {
-                            aux = "1";
+                            //aux = "1";
                             while (!aux.contentEquals("0")) {
                                 System.out.println(MainControl.OPTION_FOOTER);
                                 aux = in.next();
                                 switch (aux) {
                                     case "1": {
                                         updateFriend(id);
-                                        aux = "0";
+                                        aux="0";
                                     }
                                     break;
                                     case "2": {
-                                        removeFriend(id);
-                                        aux = "0";
+                                        if (MainControl.confirm())
+                                            removeFriend(id);
+                                        aux="0";
                                     }
                                     break;
-                                    case "0":
+                                    case "0": {
+                                        aux = "0";
+                                        id=0;
+                                        sair=true;
                                         break;
+                                    }
                                     default:
                                         System.out.println("Inválido. ");
                                         break;
@@ -86,8 +92,10 @@ public class FriendControl {
                         }
                     } else
                         System.out.println("Inválido. Digite novamente: ");
-                }
-            }
+                } else
+                    sair=true;
+            } else
+                sair=true;
         }
     }
 }
