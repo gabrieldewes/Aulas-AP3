@@ -75,7 +75,7 @@ public class LoanControl {
                                     case "0": {
                                         aux = "0";
                                         id=0;
-                                        sair=true;
+                                        //sair=true;
                                         break;
                                     }
                                     default:

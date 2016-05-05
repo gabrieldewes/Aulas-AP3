@@ -55,7 +55,7 @@ public class DBHelper extends SQLiteConnection {
                             (new FileReader("assets/scripts/CreateTable.sql"));
             while ((line = input.readLine()) != null) {
                 stmt.executeUpdate(line);
-                System.out.println(line);
+                //System.out.println(line);
             }
             input.close();
         }

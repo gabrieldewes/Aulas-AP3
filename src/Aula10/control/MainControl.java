@@ -39,6 +39,12 @@ public class MainControl {
         helper.close();
     }
 
+    protected static void init() throws SQLException {
+        helper = new DBHelper();
+        helper.onCreate2(helper);
+        helper.close();
+    }
+
     protected static void reinitialize() throws SQLException {
         helper = new DBHelper();
         System.out.println("Verificando integridade do banco...");

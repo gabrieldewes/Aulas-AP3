@@ -21,14 +21,14 @@ public class LoanDAO {
         helper = new DBHelper();
     }
 
-    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS loan (" +
-            "id_loan INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "id_friend INTEGER," +
+    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS loan ( " +
+            "id_loan INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id_friend INTEGER REFERENCES friends(id_friend) ON UPDATE CASCADE ON DELETE RESTRICT, " +
             "loan_date TEXT); ";
 
     public static final String CREATE_FOREIGN_TABLE = "CREATE TABLE IF NOT EXISTS loan_has_item (" +
-            "has_loan INTEGER, " +
-            "has_item INTEGER); ";
+            "has_loan INTEGER REFERENCES loan(id_loan) ON UPDATE CASCADE ON DELETE RESTRICT, " +
+            "has_item INTEGER REFERENCES items(id_item) ON UPDATE CASCADE ON DELETE RESTRICT); ";
 
     private static final String INSERT =
             "INSERT INTO loan (id_friend, loan_date) VALUES (?, ?); ";

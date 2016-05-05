@@ -45,7 +45,7 @@ public class FriendDAO {
             stmt.setString(1, f.getName());
             stmt.setString(2, f.getAddress());
             stmt.setLong(3, f.getPhone());
-            System.out.println(stmt);
+            //System.out.println(stmt);
             stmt.execute();
             stmt.close();
             helper.close();
@@ -57,15 +57,16 @@ public class FriendDAO {
 
     }
 
-    public void updateFriend (int id_friend) {
+    public void updateFriend (int id_friend) throws SQLException {
         Friend f = Friend.readNewFriend();
+        helper = new DBHelper();
         try {
             stmt = helper.prepareStatement(update);
             stmt.setString(1, f.getName());
             stmt.setString(2, f.getAddress());
             stmt.setLong(3, f.getPhone());
             stmt.setInt(4, id_friend);
-            System.out.println(stmt);
+            //System.out.println(stmt);
             stmt.executeUpdate();
             stmt.close();
             helper.close();
@@ -80,7 +81,7 @@ public class FriendDAO {
         try {
             stmt = helper.prepareStatement(delete);
             stmt.setInt(1, id_friend);
-            System.out.println(stmt);
+            //System.out.println(stmt);
             stmt.executeUpdate();
             stmt.close();
             helper.close();

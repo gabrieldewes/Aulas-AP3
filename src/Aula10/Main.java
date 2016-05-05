@@ -36,7 +36,6 @@ public class Main extends MainControl {
     public static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws SQLException, IOException {
-        ProgressBarDemo pbd = new ProgressBarDemo();
         //DBHelper hp = new DBHelper();
         //hp.onDelete(hp);
         //hp.onCreate(hp);
@@ -58,7 +57,8 @@ public class Main extends MainControl {
         //PopulateDatabase pdb = new PopulateDatabase();
         //pdb.populate(hp);
 
-        /*String aux="1";
+        init();
+        String aux="1";
         while (!aux.contentEquals("0")) {
             System.out.print(DEFAULT_MENU);
             aux = in.next();
@@ -81,7 +81,6 @@ public class Main extends MainControl {
                 case "6":
                     loanManager();
                     break;
-
                 case "8":
                     populate();
                     break;
@@ -96,6 +95,6 @@ public class Main extends MainControl {
                     System.out.println("Inválido. ");
                     break;
             }
-        }*/
+        }
     }
 }

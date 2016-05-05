@@ -18,7 +18,7 @@ public class PopulateDatabase {
             BufferedReader input = openSQLfile( "assets/scripts/Insert.sql" );
             while ((line = input.readLine()) != null) {
                 stmt.executeUpdate(line);
-                System.out.println(line);
+                //System.out.println(line);
             }
             input.close();
         }

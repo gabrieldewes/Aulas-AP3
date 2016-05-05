@@ -55,8 +55,7 @@ public class ItemDAO {
             stmt.setDouble(3, it.getPrice());
             stmt.setString(4, it.getCons_state());
             stmt.setInt(5, it.getType().getValor());
-
-            System.out.println(stmt);
+            //System.out.println(stmt);
             stmt.execute();
             stmt.close();
             helper.close();
@@ -68,8 +67,9 @@ public class ItemDAO {
 
     }
 
-    public void updateItem (int id_item) {
+    public void updateItem (int id_item) throws SQLException {
         Item it = Item.readNewItem();
+        helper = new DBHelper();
         try {
             stmt = helper.prepareStatement(update);
             stmt.setString(1, it.getName());
@@ -78,7 +78,7 @@ public class ItemDAO {
             stmt.setString(4, it.getCons_state());
             stmt.setInt(5, it.getType().getValor());
             stmt.setInt(6, id_item);
-            System.out.println(stmt);
+            //System.out.println(stmt);
             stmt.executeUpdate();
             stmt.close();
             helper.close();
@@ -94,7 +94,7 @@ public class ItemDAO {
         try {
             stmt = helper.prepareStatement(delete);
             stmt.setInt(1, id_item);
-            System.out.println(stmt);
+            //System.out.println(stmt);
             stmt.executeUpdate();
             stmt.close();
             helper.close();
