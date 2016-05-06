@@ -24,7 +24,7 @@ public class ItemControl {
 
     private static final String ITEM_HEADER = "\n" +
             "+------------------------- ITENS --------------------------+";
-    private static final String ITEM_FOOTER =
+    public static final String ITEM_FOOTER =
             "+----------------------------------------------------------+ \n" +
             "| Selecionar: (ID do item)                        Sair (0) | \n" +
             "+----------------------------------------------------------+ \n" +
@@ -47,7 +47,7 @@ public class ItemControl {
         itd.removeItem(id_item);
     }
 
-    private static boolean listItem() throws SQLException {
+    public static boolean listItem() throws SQLException {
         itd = new ItemDAO();
         items = itd.listItems();
         return items.size() > 0;

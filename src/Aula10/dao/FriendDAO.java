@@ -39,6 +39,9 @@ public class FriendDAO {
     private static final String list =
             "SELECT * FROM friends";
 
+    private static final String count =
+            "SELECT COUNT(id_friend) FROM friends; ";
+
     public void createFriend(Friend f) {
         try {
             stmt = helper.prepareStatement(insert);
@@ -92,7 +95,7 @@ public class FriendDAO {
         }
     }
 
-    public boolean getFriend (int id_friend) throws SQLException {
+    public static boolean getFriend(int id_friend) throws SQLException {
         try {
             stmt = helper.prepareStatement(select);
             stmt.setInt(1, id_friend);
@@ -141,4 +144,5 @@ public class FriendDAO {
         }
         return friends;
     }
+
 }

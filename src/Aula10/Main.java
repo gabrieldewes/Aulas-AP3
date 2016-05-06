@@ -1,12 +1,6 @@
 package Aula10;
 
-import Aula10.control.FriendControl;
-import Aula10.control.ItemControl;
-import Aula10.control.LoanControl;
 import Aula10.control.MainControl;
-import Aula10.database.DBHelper;
-import Aula10.util.ProgressBarDemo;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -36,28 +30,6 @@ public class Main extends MainControl {
     public static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws SQLException, IOException {
-        //DBHelper hp = new DBHelper();
-        //hp.onDelete(hp);
-        //hp.onCreate(hp);
-        //hp.onCreate2(hp);
-        //reinitialize();
-
-        //ItemDAO itd = new ItemDAO();
-        //Item it = Item.readNewItem();
-        //itd.createItem(it);
-        //itd.listItems();
-
-        //FriendDAO fd = new FriendDAO();
-        //Friend f = Friend.readNewFriend();
-        //fd.createFriend(f);
-        //fd.listFriend();
-        //fd.updateFriend(2);
-        //fd.removeFriend(2);
-
-        //PopulateDatabase pdb = new PopulateDatabase();
-        //pdb.populate(hp);
-
-        init();
         String aux="1";
         while (!aux.contentEquals("0")) {
             System.out.print(DEFAULT_MENU);

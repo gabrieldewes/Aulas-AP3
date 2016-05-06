@@ -16,13 +16,16 @@ public class MainControl {
     private static DBHelper helper;
 
     protected static final String DEFAULT_MENU =
-            "+-------------------------------+-------------------------------+-------------------------------+ \n" +
-            "|            ITENS              |           AMIGOS              |        EMPRÉSTIMOS            | \n" +
-            "|     Novo (1) | Listar (2)     |     Novo (3) | Listar (4)     |     Novo (5) | Listar (6)     | \n" +
-            "+-------------------------------+-------------------------------+-------------------------------+ \n" +
-            "|   Popular para teste (8)      |        Reiniciar (9)          |               Sair (0)        | \n" +
-            "+-------------------------------+-------------------------------+-------------------------------+ \n" +
+            "+-------------------------------+-------------------------------+-------------------------------+----------+ \n" +
+            "|            ITENS              |           AMIGOS              |        EMPRÉSTIMOS            | Sair (0) | \n" +
+            "|     Novo (1) | Listar (2)     |     Novo (3) | Listar (4)     |     Novo (5) | Listar (6)     |          | \n" +
+            "+-------------------------------+-------------------------------+-------------------------------+----------+ \n" +
             "- Sua opção: ";
+
+    /*
+    "|   Popular para teste (8)      |        Reiniciar (9)          |               Sair (0)        | \n" +
+    "+-------------------------------+-------------------------------+-------------------------------+ \n" +
+    */
 
     static final String OPTION_FOOTER =
             "+----------------------------------------------------------+ \n" +
@@ -32,6 +35,9 @@ public class MainControl {
 
     protected static void populate() throws SQLException, IOException {
         helper = new DBHelper();
+        //System.out.println("Verificando integridade do banco...");
+        helper.onCreate2(helper);
+        //helper.onUpgrade(helper, 1, 1);
         PopulateDatabase pdb = new PopulateDatabase();
         System.out.println("Inserindo dados...");
         pdb.populate(helper);
@@ -39,19 +45,13 @@ public class MainControl {
         helper.close();
     }
 
-    protected static void init() throws SQLException {
-        helper = new DBHelper();
-        helper.onCreate2(helper);
-        helper.close();
-    }
-
     protected static void reinitialize() throws SQLException {
         helper = new DBHelper();
-        System.out.println("Verificando integridade do banco...");
-        helper.onUpgrade(helper, 1, 1);
-        System.out.println("Apagando tabelas...");
+        //System.out.println("Verificando integridade do banco...");
+        helper.onCreate2(helper);
+        //helper.onUpgrade(helper, 1, 1);
+        System.out.println("Reiniciando...");
         helper.onDelete(helper);
-        System.out.println("Recriando tabelas...");
         helper.onCreate2(helper);
         //helper.onCreate(helper);
         helper.close();
@@ -67,14 +67,15 @@ public class MainControl {
 
     public static int[] strToIntArray(String str) {
         String aux = "";
-        String s = "";
+        String s;
         ArrayList<String> lhi = new ArrayList<>();
-        str = str.concat(",");
+        if ( ! (str.endsWith(",") || str.endsWith(".")) )
+            str = str.concat(",");
         for (int i=0; i<str.length(); i++) {
             s = String.valueOf(str.charAt(i));
             if (s.contentEquals(",") || s.contentEquals(".") ) {
                 lhi.add(aux);
-                System.out.println(lhi);
+                //System.out.println(lhi);
                 aux = "";
             } else {
                 s = String.valueOf(str.charAt(i));

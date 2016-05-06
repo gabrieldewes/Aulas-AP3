@@ -33,6 +33,9 @@ public class LoanDAO {
     private static final String INSERT =
             "INSERT INTO loan (id_friend, loan_date) VALUES (?, ?); ";
 
+    private static final String DELETE =
+            "DELETE FROM loan WHERE id_loan = ?";
+
     private static final String INSERT_FOREIGN =
             "INSERT INTO loan_has_item (has_item, has_loan) VALUES (?, ?); ";
 
@@ -82,8 +85,28 @@ public class LoanDAO {
 
     }
 
+    public void updateLoan(int id_loan) {
+
+    }
+
+    public void removeLoan(int id_loan) {
+        try {
+            stmt = helper.prepareStatement(DELETE);
+            stmt.setInt(1, id_loan);
+            //System.out.println(stmt);
+            stmt.executeUpdate();
+            stmt.close();
+            helper.close();
+            System.out.println("Empréstimo finalizado.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao finalizar empréstimo. ");
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean getLoan(int id_loan) {
-        return false;
+
+        return true;
     }
 
     public ArrayList<Object> listLoan() {
@@ -95,7 +118,7 @@ public class LoanDAO {
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     int id_loan = rs.getInt("id_loan");
-                    //int id_friend = rs.getInt("id_friend");
+                    int id_friend = rs.getInt("id_friend");
                     String name_friend = rs.getString("name_friend");
                     String loan_date = rs.getString("loan_date");
                     int has_loan = rs.getInt("has_loan");
@@ -109,7 +132,8 @@ public class LoanDAO {
                         System.out.println(" # "+ name_item );
                         last_id = id_loan;
                     }
-
+                    Loan l = new Loan(id_loan, null, id_friend, loan_date);
+                    loans.add(l);
                 }
             }
             else {

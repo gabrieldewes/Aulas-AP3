@@ -1,5 +1,7 @@
 package Aula10.model;
 
+import Aula10.control.FriendControl;
+import Aula10.control.ItemControl;
 import Aula10.control.MainControl;
 import Aula10.dao.FriendDAO;
 import Aula10.dao.ItemDAO;
@@ -17,39 +19,15 @@ public class Loan {
     private int id_friend;
     private String loan_date;
 
-    public Loan (int idl, int[] lhi, int idf, String ld) {
+    public Loan(int idl, int[] lhi, int idf, String ld) {
         this.setId_loan(idl);
         this.setLoan_has_item(lhi);
         this.setId_friend(idf);
         this.setLoan_date(ld);
     }
 
-    public static Loan readNewLoan () throws SQLException {
-        int idf = 0;
-        int[] lhi = {0};
-        int i=0;
-        boolean exit=false;
+    public static Loan readNewLoan(int idf, int[] lhi) throws SQLException {
         Scanner in = new Scanner(System.in);
-
-        FriendDAO fd = new FriendDAO();
-        fd.listFriend();
-        System.out.print("ID do amigo: ");
-        while (idf == 0) {
-            String str = in.next();
-            idf = MainControl.strToInt(str);
-        }
-        in.nextLine();
-        ItemDAO it = new ItemDAO();
-        it.listItems();
-        System.out.println("OBS: separe por vírgula para vários itens.");
-        System.out.print("ID do item: ");
-        String str = in.nextLine();
-        try { lhi = MainControl.strToIntArray(str); }
-        catch (Exception e) { e.getMessage(); }
-        for (int j=0; j<lhi.length; j++) {
-            System.out.print(lhi[j] +", ");
-        }
-
         System.out.println("Data de empréstimo: ");
         String ld = in.next();
         return new Loan(0, lhi, idf, ld);

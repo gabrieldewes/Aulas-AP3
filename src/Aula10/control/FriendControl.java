@@ -19,7 +19,7 @@ public class FriendControl {
 
     private static final String FRIEND_HEADER =
             "+------------------------ AMIGOS --------------------------+";
-    private static final String FRIEND_FOOTER =
+    public static final String FRIEND_FOOTER =
             "+----------------------------------------------------------+ \n" +
             "| Selecionar: (ID do amigo)                       Sair (0) |\n" +
             "+----------------------------------------------------------+ \n" +
@@ -42,7 +42,7 @@ public class FriendControl {
         fd.removeFriend(id_friend);
     }
 
-    private static boolean listFriend() throws SQLException {
+    public static boolean listFriend() throws SQLException {
         fd = new FriendDAO();
         friends = fd.listFriend();
         return friends.size() > 0;
