@@ -1,0 +1,51 @@
+.root {
+    -fx-background-color: #FFFFFF;
+}
+
+#labelID {
+    -fx-background-color: #4D4D4D;
+    -fx-text-fill: #EEEEEE;
+    -fx-font-style: normal;
+    -fx-font-size: 16;
+    -fx-font-family: "Verdana";
+}
+
+.button5Class {
+    -fx-font-style: normal;
+    -fx-border-color: Black;
+    -fx-border-width: .015cm;
+    -fx-border-style: solid;
+    -fx-border-radius: 1;
+    -fx-text-fill: white;
+    -fx-padding: 5 5 5 5;
+
+    -fx-font-size: 20;
+    -fx-background-color: #FE8F3E;
+}
+
+.buttonNumeric {
+    -fx-font-style: normal;
+    -fx-border-color: Black;
+    -fx-border-width: .015cm;
+    -fx-border-style: solid;
+    -fx-border-radius: 1;
+    -fx-text-fill: #4D4D4D;
+    -fx-padding: 5 5 5 5;
+
+    -fx-font-size: 20;
+    -fx-background-color: #D5D5D5;
+}
+
+.buttonRest {
+    -fx-font-style: normal;
+    -fx-border-color: Black;
+    -fx-border-width: .015cm;
+    -fx-border-style: solid;
+    -fx-border-radius: 1;
+    -fx-text-fill: #4D4D4D;
+    -fx-padding: 5 5 5 5;
+
+    -fx-font-size: 20;
+    -fx-background-color: #DFDFDF;
+}
+
